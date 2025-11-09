@@ -1,4 +1,4 @@
-# Min Max Food - Piano Alimentare
+# Min Max Food
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?logo=javascript)
 ![PHP](https://img.shields.io/badge/PHP-7.4+-777BB4?logo=php)
@@ -10,7 +10,7 @@
 
 ![Home Screen](docs/img/home_screen.png)
 
-Applicazione web per organizzare piani alimentari giornalieri con calcolo automatico dei valori nutrizionali tramite il **problema di flusso a costo minimo (Minimum Cost Flow)**, gestione alternative e ottimizzazione macronutrienti.
+Applicazione web per organizzare piani alimentari giornalieri con calcolo automatico dei valori nutrizionali, gestione alternative e ottimizzazione macronutrienti tramite il **problema di flusso a costo minimo (Minimum Cost Flow)**.
 
 ## Caratteristiche
 
