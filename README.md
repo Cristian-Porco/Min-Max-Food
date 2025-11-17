@@ -10,184 +10,176 @@
 
 ![Home Screen](docs/img/home_screen.png)
 
-Applicazione web per organizzare piani alimentari giornalieri con calcolo automatico dei valori nutrizionali, gestione alternative e ottimizzazione macronutrienti tramite il **problema di flusso a costo minimo (Minimum Cost Flow)**.
+A web application for organizing daily meal plans with automatic calculation of nutritional values, alternative management, and macronutrient optimization using the **Minimum Cost Flow problem**.
 
-## Caratteristiche
+## Features
 
-Sono presenti diverse caratteristiche all'interno dell'applicazione web:
+The web application includes several features:
 
-- **Gestione alternative**: crea più varianti per ogni pasto con la stessa base nutrizionale;
-- **Ottimizzazione automatica**: algoritmo di ottimizzazione per avvicinare i valori ai limiti impostati;
-- **Calcolo dinamico**: calcolo automatico dei macro in base ai grammi inseriti;
-- **Limiti personalizzati**: imposta limiti massimi per calorie, proteine, carboidrati e grassi;
-- **Note**: aggiungi annotazioni e osservazioni al piano alimentare;
-- **Export/Import JSON**: salva e carica piani completi con limiti e note;
-- **Stampa PDF**: genera PDF professionale con tutte le alternative e totali;
-- **Drag & Drop**: riordina gli alimenti trascinandoli.
+- **Alternative Management**: Create multiple variants for each meal with the same nutritional base
+- **Automatic Optimization**: Optimization algorithm to approach set limits
+- **Dynamic Calculation**: Automatic macro calculation based on grams entered
+- **Custom Limits**: Set maximum limits for calories, protein, carbohydrates, and fats
+- **Notes**: Add annotations and observations to the meal plan
+- **JSON Export/Import**: Save and load complete plans with limits and notes
+- **PDF Print**: Generate professional PDF with all alternatives and totals
+- **Drag & Drop**: Reorder foods by dragging them
 
-## Struttura del Progetto
+## Project Structure
 
 ```
 ProjectMinMaxFood/
-├── index.php              # Pagina principale
+├── index.php              # Main page
 ├── assets/
 │   ├── js/
-│   │   └── app.js        # Logica applicazione
-│   └── css/              # (riservato per futuri CSS custom)
+│   │   └── app.js        # Application logic
+│   └── css/
+│       └── style.css     # Custom styles
 ├── config/
-│   └── config.php        # Configurazione database
+│   └── config.php        # Database configuration
 ├── includes/
-│   ├── api.php           # API recupero alimenti
-│   └── add_food.php      # API aggiunta alimenti
+│   ├── api.php           # Food retrieval API
+│   └── add_food.php      # Food addition API
 ├── sql/
-│   └── database.sql      # Schema database e dati iniziali
-└── README.md             # Documentazione
+│   └── database.sql      # Database schema and initial data
+├── docs/
+│   └── img/              # Documentation images
+└── README.md             # Documentation
 ```
 
-## Installazione
+## Installation
 
-### 1. Configura il Database
+### 1. Configure the Database
 
-Importa il file `sql/database.sql` nel tuo MySQL:
+Import the `sql/database.sql` file into your MySQL:
 
 ```bash
 mysql -u root -p < sql/database.sql
 ```
 
-Oppure tramite phpMyAdmin:
-1. Apri phpMyAdmin
-2. Crea un nuovo database chiamato `piano_alimentare`
-3. Importa il file `sql/database.sql`
+Or via phpMyAdmin:
+1. Open phpMyAdmin
+2. Create a new database called `piano_alimentare`
+3. Import the `sql/database.sql` file
 
-### 2. Configura la Connessione Database
+### 2. Configure Database Connection
 
-Modifica il file `config/config.php` con le tue credenziali MySQL:
+Edit the `config/config.php` file with your MySQL credentials:
 
 ```php
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', 'tua_password');
+define('DB_PASS', 'your_password');
 define('DB_NAME', 'piano_alimentare');
 ```
 
-### 3. Avvia il Server
+### 3. Start the Server
 
-#### Opzione A: PHP Built-in Server (per sviluppo)
+#### Option A: PHP Built-in Server (for development)
 
 ```bash
-cd /percorso/al/progetto
+cd /path/to/project
 php -S localhost:8000
 ```
 
-Poi apri il browser su: `http://localhost:8000`
+Then open your browser at: `http://localhost:8000`
 
-#### Opzione B: XAMPP/WAMP/MAMP
+#### Option B: XAMPP/WAMP/MAMP
 
-1. Copia la cartella del progetto in `htdocs` (XAMPP) o `www` (WAMP)
-2. Avvia Apache e MySQL
-3. Apri: `http://localhost/ProjectMinMaxFood`
+1. Copy the project folder to `htdocs` (XAMPP) or `www` (WAMP)
+2. Start Apache and MySQL
+3. Open: `http://localhost/ProjectMinMaxFood`
 
-#### Opzione C: Server Apache/Nginx
+#### Option C: Apache/Nginx Server
 
-Configura il virtual host per puntare alla directory del progetto.
+Configure the virtual host to point to the project directory.
 
-## Utilizzo
+## Usage
 
-### Aggiungere Alimenti al Piano
+### Adding Foods to the Plan
 
-1. **Seleziona un alimento** dal menu a tendina (organizzato per categorie)
-2. **Inserisci la quantità** in grammi (default: 100g)
-3. **Scegli il pasto** (Colazione, Pranzo, Cena, Spuntini)
-4. Clicca **"Aggiungi al Piano"**
+1. **Select a food** from the dropdown menu (organized by categories)
+2. **Enter the quantity** in grams (default: 100g)
+3. **Choose the meal** (Breakfast, Lunch, Dinner, Snacks)
+4. **Select the alternative** to add it to
+5. Click **"Add"**
 
-I valori nutrizionali vengono calcolati automaticamente in base alla quantità inserita.
+Nutritional values are automatically calculated based on the quantity entered.
 
-### Visualizzare Totali
+### Managing Alternatives
 
-- **Totali per pasto**: visualizzati in fondo a ogni sezione del pasto
-- **Totali giornalieri**: visualizzati nella sezione in basso con sfondo colorato
+- Click **"New Alternative"** to create a new meal variant
+- Click **"Recommend"** to set an alternative as recommended
+- Click **"Delete"** to remove an alternative
+- Click **"Optimize"** to automatically adjust quantities to approach limits
 
-### Rimuovere Alimenti
+### Viewing Totals
 
-Clicca sul pulsante **"Rimuovi"** accanto all'alimento che vuoi eliminare.
+- **Per-meal totals**: Displayed at the bottom of each meal section
+- **Daily totals**: Displayed in the bottom bar (can be shown/hidden with the button)
 
-### Esportare il Piano
+### Removing Foods
 
-1. Clicca su **"Esporta Piano (JSON)"**
-2. Il file JSON verrà scaricato automaticamente con il nome `piano-alimentare-YYYY-MM-DD.json`
+Click the **"Remove"** button next to the food you want to delete.
 
-### Importare un Piano
+### Exporting the Plan
 
-1. Clicca su **"Importa Piano (JSON)"**
-2. Seleziona un file JSON precedentemente esportato
-3. Conferma se vuoi sovrascrivere il piano attuale
+1. Click **"Export Plan (JSON)"**
+2. The JSON file will be automatically downloaded with the name `piano-alimentare-YYYY-MM-DD.json`
 
-### Cancellare Tutto
+### Importing a Plan
 
-Clicca su **"Cancella Tutto"** per rimuovere tutti gli alimenti da tutti i pasti.
+1. Click **"Import Plan (JSON)"**
+2. Select a previously exported JSON file
+3. Confirm if you want to overwrite the current plan
 
-## Struttura del Progetto
+### Clearing Everything
 
-```
-ProjectMinMaxFood/
-├── index.php          # Pagina principale
-├── app.js            # Logica JavaScript
-├── api.php           # API per recuperare alimenti
-├── config.php        # Configurazione database
-├── database.sql      # Schema e dati del database
-└── README.md         # Questa documentazione
-```
+Click **"Clear All"** to remove all foods from all meals.
 
 ## Database
 
-### Tabella: alimenti
+### Table: alimenti
 
-| Campo        | Tipo         | Descrizione                    |
+| Field        | Type         | Description                     |
 |--------------|--------------|--------------------------------|
-| id           | INT          | ID univoco                     |
-| nome         | VARCHAR(100) | Nome dell'alimento             |
-| calorie      | DECIMAL(6,2) | Calorie per 100g               |
-| proteine     | DECIMAL(6,2) | Proteine in grammi per 100g    |
-| carboidrati  | DECIMAL(6,2) | Carboidrati in grammi per 100g |
-| grassi       | DECIMAL(6,2) | Grassi in grammi per 100g      |
-| fibre        | DECIMAL(6,2) | Fibre in grammi per 100g       |
-| zuccheri     | DECIMAL(6,2) | Zuccheri in grammi per 100g    |
-| categoria    | VARCHAR(50)  | Categoria alimento             |
-| created_at   | TIMESTAMP    | Data creazione                 |
+| id           | INT          | Unique ID                      |
+| nome         | VARCHAR(100) | Food name                      |
+| calorie      | DECIMAL(6,2) | Calories per 100g              |
+| proteine     | DECIMAL(6,2) | Protein in grams per 100g      |
+| carboidrati  | DECIMAL(6,2) | Carbohydrates in grams per 100g|
+| grassi       | DECIMAL(6,2) | Fats in grams per 100g         |
+| fibre        | DECIMAL(6,2) | Fiber in grams per 100g        |
+| zuccheri     | DECIMAL(6,2) | Sugars in grams per 100g       |
+| categoria    | VARCHAR(50)  | Food category                  |
+| created_at   | TIMESTAMP    | Creation date                  |
 
-Il database include oltre 50 alimenti italiani comuni, suddivisi in categorie:
-- Cereali
-- Carne
-- Pesce
-- Latticini
-- Uova
-- Legumi
-- Frutta secca
-- Frutta
-- Verdure
-- Condimenti
+The database includes over 50 common Italian foods, divided into categories:
+- Cereals
+- Meat
+- Fish
+- Dairy
+- Eggs
+- Legumes
+- Nuts
+- Fruit
+- Vegetables
+- Condiments
 
-## Tecnologie Utilizzate
+## Adding New Foods
 
-- **Backend**: PHP puro
-- **Database**: MySQL
-- **Frontend**: HTML5, CSS3 (Tailwind CSS)
-- **JavaScript**: Vanilla JS (ES6+)
-
-## Note Importanti
-
-- I piani alimentari **NON vengono salvati nel database**
-- Solo gli alimenti sono memorizzati nel database
-- I piani possono essere salvati localmente tramite export JSON
-- Tutti i calcoli avvengono lato client in tempo reale
-
-## Aggiungere Nuovi Alimenti
-
-Per aggiungere nuovi alimenti al database:
+To add new foods to the database:
 
 ```sql
 INSERT INTO alimenti (nome, calorie, proteine, carboidrati, grassi, fibre, zuccheri, categoria)
-VALUES ('Nome Alimento', 100.0, 10.0, 20.0, 5.0, 2.0, 1.0, 'Categoria');
+VALUES ('Food Name', 100.0, 10.0, 20.0, 5.0, 2.0, 1.0, 'Category');
 ```
 
-Si possono inserire alimenti tramite interfaccia grafica dell'applicazione web.
+Foods can also be added through the web application's graphical interface.
+
+## Important Notes
+
+- Meal plans are **NOT saved in the database**
+- Only foods are stored in the database
+- Plans can be saved locally via JSON export
+- All calculations happen client-side in real-time
